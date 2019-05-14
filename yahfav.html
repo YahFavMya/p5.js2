@@ -1,0 +1,71 @@
+let score 
+let direction
+let direction_h
+let direction_v
+
+let x
+let y
+let m
+let b
+let h
+let w
+
+function setup() {
+  score = 0
+  direction_h = 1
+  direction_v = 1
+  x=(200)
+  y=(500)
+  m=(200)
+  b=(300)
+  h=(200)
+  w=(300)
+  createCanvas(windowWidth, windowHeight);
+}
+
+function draw() {
+  background(214, 234, 248)
+  
+  if (dist(x,y,m,b) < 100 + 100) {
+	score = score + 1
+}
+  
+  if (dist(x,y,h,w) < 100 + 100) {
+	score = score - 2
+}
+  
+  if (m > width || m < 0) {
+	direction_h = direction_h * -1
+}
+  if (b > height || b < 0) {
+    direction_v = direction_v * -1
+  }
+    
+  if (keyIsDown(RIGHT_ARROW)) {
+    x = x + 5
+  }
+  if (keyIsDown(LEFT_ARROW)) {
+    x = x - 5
+  }
+  if (keyIsDown(UP_ARROW)) {
+    y = y - 5
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    y = y + 5 
+  }
+    
+  text(score,20,20)
+  
+  m = m + 10*direction_h
+  b = b + 10*direction_v
+  
+  fill(213,245,227)
+  circle(x,y,100)
+  
+  fill(244,143,177)
+  circle(m,b,100)
+  
+  fill(202,207,210)
+  circle(h,w,100)
+
+  }
