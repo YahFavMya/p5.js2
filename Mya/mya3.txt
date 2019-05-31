@@ -1,0 +1,100 @@
+let speed
+let size
+let level
+let score 
+let direction
+let direction_h
+let direction_v
+let direction_h2
+let direction_v2
+
+let x
+let y
+let m
+let b
+let h
+let w
+
+function setup() {
+  speed = 8
+  size = 100
+  level=1
+  score = 0
+  direction_h = [1,1,1,1]
+  direction_v = [1,1,1,1]
+  direction_h2 = 1
+  direction_v2 = 1
+  
+  x=(200)
+  y=(500)
+  m=[100,400,700,300]
+  b=[300,600,100,300]
+  h=(200)
+  w=(300)
+createCanvas(windowWidth, windowHeight);
+}
+
+function draw() {
+  
+  if (score > 100 && level == 1) {
+      size = size - 30
+    speed = speed + 5
+    m = [1,1,1,1] 
+    level = 2
+  }
+  background(214, 234, 248)
+  for (i=0; i<2; i=i+1) {
+
+      if (dist(x,y,m[i],b[i]) < 100 + size) {
+        score = score - 2
+      }
+      fill(202,207,210)
+      circle(m[i],b[i],size)
+
+      if (m[i] > width || m[i] < 0) {
+        direction_h[i] = direction_h[i] * -1
+      }
+      if (b[i] > height || b[i] < 0) {
+        direction_v[i] = direction_v[i] * -1
+      }
+      m[i] = m[i] + speed*direction_h[i]
+      b[i] = b[i] + speed*direction_v[i]
+  }
+  
+  if (dist(x,y,h,w) < 100 + 100) {
+	score = score + 1
+}
+  
+  if (h > width || h < 0) {
+	direction_h2 = direction_h2 * -1
+}
+    if (w > height || w < 0) {
+    direction_v2 = direction_v2 * -1
+  }
+  
+  if (keyIsDown(RIGHT_ARROW) && x < width) {
+    x = x + 8
+  }
+  if (keyIsDown(LEFT_ARROW) && x > 0) {
+    x = x - 8
+  }
+  if (keyIsDown(UP_ARROW) && y > 0) {
+    y = y - 8
+  }
+  if (keyIsDown(DOWN_ARROW) && y < height) {
+    y = y + 8
+  }
+    
+  text(score,20,20)
+  
+  
+  h = h + 10*direction_h2
+  w = w + 10*direction_v2
+  
+  fill(213,245,227)
+  circle(x,y,100)
+
+  fill(244,143,177)
+  circle(h,w,100)
+
+  }
